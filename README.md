@@ -1,0 +1,124 @@
+# @m3ui-vue/nuxt
+
+<p>
+  <a href="https://www.npmjs.com/package/@m3ui-vue/nuxt"><img src="https://img.shields.io/npm/v/@m3ui-vue/nuxt?color=blue" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@m3ui-vue/nuxt"><img src="https://img.shields.io/npm/l/@m3ui-vue/nuxt" alt="license"></a>
+</p>
+
+Nuxt module for [m3ui-vue](https://m3ui.dev), the Material Design 3 component library for Vue 3 + Tailwind CSS v4.
+
+It installs the library's plugin, auto-imports its components and composables, adds its stylesheet, and puts the
+user's theme (dark mode, palette, contrast) on the server-rendered page before the first paint.
+
+## Install
+
+```bash
+pnpm add @m3ui-vue/nuxt @m3ui-vue/m3ui-vue
+pnpm add -D tailwindcss @tailwindcss/vite
+```
+
+```ts
+// nuxt.config.ts
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineNuxtConfig({
+  modules: ['@m3ui-vue/nuxt'],
+  css: ['~/assets/main.css'],
+  vite: { plugins: [tailwindcss()] },
+  m3ui: {
+    palette: 'red',
+    locale: 'es',
+  },
+})
+```
+
+The theme and the palettes are Tailwind CSS, so they go in your own stylesheet, after Tailwind:
+
+```css
+/* assets/main.css */
+@import 'tailwindcss';
+@import '@m3ui-vue/m3ui-vue/theme';
+@import '@m3ui-vue/m3ui-vue/palettes';
+```
+
+Load the fonts as the [library's README](https://github.com/SrWither/m3ui-vue#fonts) says (Roboto and Material Symbols),
+for example in `app.head.link`.
+
+## Usage
+
+Components work in any page or component without importing them:
+
+```vue
+<template>
+  <MButton @click="toast.success('Saved')">Save</MButton>
+</template>
+
+<script setup lang="ts">
+const toast = useM3Toast()
+</script>
+```
+
+Each component is bundled only where it's used. `MChart`, `MCodeEditor`, `MJsonEditor`, `MMarkdown`,
+`MRichTextEditor`, `MTerminal`, `MQRCode` and `MBarcode` are registered when their optional dependency is installed
+(see the library's README).
+
+The composables are prefixed so they can't clash with other modules (`useDevice`, `useTheme`… are common names):
+
+| Library | Auto-imported as |
+|---|---|
+| `useTheme` | `useM3Theme` |
+| `useColorPalette` | `useM3ColorPalette` |
+| `useToast` | `useM3Toast` |
+| `useNotification` | `useM3Notification` |
+| `useLocale` | `useM3Locale` |
+| `useDevice` | `useM3Device` |
+| `useWindowSizeClass` | `useM3WindowSizeClass` |
+| `useFieldBg`, `useDebounce`, `usePageProgress`, `useSpring` | `useM3FieldBg`, `useM3Debounce`, `useM3PageProgress`, `useM3Spring` |
+
+Anything else (types, `palettes`, `motionSprings`…) is imported from `@m3ui-vue/m3ui-vue` as usual.
+
+## Options
+
+Everything `createM3UI()` takes, plus what the module itself does:
+
+| Option | Default | |
+|---|---|---|
+| `palette`, `seed`, `seedOptions`, `contrast`, `persistPalette`, `customPalettes`, `themeColor` | | As in `createM3UI()` |
+| `locale` | English | A preset's code (`'es'`, `'fr'`, `'pt'`, `'de'`, `'ja'`, `'zh'`, `'ko'`) or your own strings |
+| `components` | `true` | Auto-import the components |
+| `composables` | `{ prefix: 'M3' }` | Auto-import the composables with this prefix; `false` to import them yourself |
+| `css` | `true` | Add `@m3ui-vue/m3ui-vue/styles` |
+| `themeScript` | `true` | Inline `themeInitScript()` in `<head>` |
+
+## Server-side rendering
+
+The user's theme lives in `localStorage`, which the server can't read. The inlined script applies it to `<html>`
+before the page paints, so there's no flash of the default theme, but the composables still start from the defaults
+on the server (`theme` is `'system'`, `palette` is `'purple'`) and switch to the user's choice when the app hydrates.
+Render anything that depends on them inside `<ClientOnly>`, like an icon showing the current theme:
+
+```vue
+<ClientOnly>
+  <MIconButton :icon="theme === 'dark' ? 'dark_mode' : 'light_mode'" label="Theme" @click="cycle" />
+</ClientOnly>
+```
+
+The adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) measure their own size, which the server
+doesn't know either: they render their compact layout there and adapt on the client.
+
+A `seed` default can't be generated before the app loads: on the first visit the page shows the baseline palette
+until it does (later visits use the cached scheme).
+
+## Development
+
+```bash
+pnpm install
+pnpm dev:prepare   # stub the module and generate types
+pnpm dev           # the playground, with the library linked from ../m3ui-vue
+pnpm test          # builds a fixture app and checks its server-rendered HTML
+pnpm test:types
+```
+
+## License
+
+MIT
