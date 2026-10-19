@@ -2,7 +2,15 @@
   "name": "@m3ui-vue/nuxt",
   "version": "0.1.0",
   "description": "Nuxt module for m3ui-vue, the Material Design 3 component library for Vue 3 + Tailwind CSS v4",
-  "keywords": ["nuxt", "nuxt-module", "material-design", "material-3", "m3", "vue", "tailwindcss"],
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "material-design",
+    "material-3",
+    "m3",
+    "vue",
+    "tailwindcss"
+  ],
   "homepage": "https://m3ui.dev",
   "repository": {
     "type": "git",
@@ -54,6 +62,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vitest": "^5.0.5",
+    "vue": "^3.5.44",
     "vue-tsc": "^3.3.12"
   }
 }
