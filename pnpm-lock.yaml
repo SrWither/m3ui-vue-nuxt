@@ -13,8 +13,8 @@ importers:
         version: 4.6.2(@nuxt/schema@4.6.2)(confbox@0.3.1)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(rolldown@1.2.14)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.14)(rollup@4.64.10)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)))
     devDependencies:
       '@m3ui-vue/m3ui-vue':
-        specifier: link:../m3ui-vue
-        version: link:../m3ui-vue
+        specifier: ^1.0.2
+        version: 1.0.2(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))
       '@nuxt/module-builder':
         specifier: ^1.0.3
         version: 1.0.3(@nuxt/cli@3.37.0(@nuxt/schema@4.6.2)(magicast@0.5.5)(supports-color@10.2.2))(@volar/typescript@2.4.28(typescript@6.0.3))(@vue/compiler-core@3.5.44)(@vue/language-core@3.3.13)(esbuild@0.28.2)(rolldown@1.2.14)(rollup@4.64.10)(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
@@ -49,8 +49,8 @@ importers:
   playground:
     dependencies:
       '@m3ui-vue/m3ui-vue':
-        specifier: link:../../m3ui-vue
-        version: link:../../m3ui-vue
+        specifier: ^1.0.2
+        version: 1.0.2(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))
       '@m3ui-vue/nuxt':
         specifier: workspace:*
         version: link:..
@@ -588,6 +588,115 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@m3ui-vue/m3ui-vue@1.0.2':
+    resolution: {integrity: sha512-mWDjdqyKSDI9338dGkkHSVoy63+w2erCZqjobtQ7UQt8eDTyhRmOjDgbwUSHfSaHeMogihbzg62GpHznNYMlXg==}
+    peerDependencies:
+      '@codemirror/commands': '*'
+      '@codemirror/lang-cpp': '*'
+      '@codemirror/lang-css': '*'
+      '@codemirror/lang-html': '*'
+      '@codemirror/lang-javascript': '*'
+      '@codemirror/lang-json': '*'
+      '@codemirror/lang-python': '*'
+      '@codemirror/lang-rust': '*'
+      '@codemirror/lang-vue': '*'
+      '@codemirror/language': '*'
+      '@codemirror/legacy-modes': '*'
+      '@codemirror/state': '*'
+      '@codemirror/theme-one-dark': '*'
+      '@codemirror/view': '*'
+      '@tiptap/extension-color': '*'
+      '@tiptap/extension-highlight': '*'
+      '@tiptap/extension-image': '*'
+      '@tiptap/extension-link': '*'
+      '@tiptap/extension-placeholder': '*'
+      '@tiptap/extension-text-align': '*'
+      '@tiptap/extension-text-style': '*'
+      '@tiptap/extension-underline': '*'
+      '@tiptap/starter-kit': '*'
+      '@tiptap/vue-3': '*'
+      '@xterm/addon-fit': '*'
+      '@xterm/xterm': '*'
+      chart.js: '*'
+      codemirror: '*'
+      highlight.js: '*'
+      jsbarcode: '*'
+      markdown-it: '*'
+      material-symbols: '*'
+      qrcode-generator: '*'
+      tailwindcss: ^4.0.0
+      vue: ^3.5.0
+      vue-chartjs: '*'
+    peerDependenciesMeta:
+      '@codemirror/commands':
+        optional: true
+      '@codemirror/lang-cpp':
+        optional: true
+      '@codemirror/lang-css':
+        optional: true
+      '@codemirror/lang-html':
+        optional: true
+      '@codemirror/lang-javascript':
+        optional: true
+      '@codemirror/lang-json':
+        optional: true
+      '@codemirror/lang-python':
+        optional: true
+      '@codemirror/lang-rust':
+        optional: true
+      '@codemirror/lang-vue':
+        optional: true
+      '@codemirror/language':
+        optional: true
+      '@codemirror/legacy-modes':
+        optional: true
+      '@codemirror/state':
+        optional: true
+      '@codemirror/theme-one-dark':
+        optional: true
+      '@codemirror/view':
+        optional: true
+      '@tiptap/extension-color':
+        optional: true
+      '@tiptap/extension-highlight':
+        optional: true
+      '@tiptap/extension-image':
+        optional: true
+      '@tiptap/extension-link':
+        optional: true
+      '@tiptap/extension-placeholder':
+        optional: true
+      '@tiptap/extension-text-align':
+        optional: true
+      '@tiptap/extension-text-style':
+        optional: true
+      '@tiptap/extension-underline':
+        optional: true
+      '@tiptap/starter-kit':
+        optional: true
+      '@tiptap/vue-3':
+        optional: true
+      '@xterm/addon-fit':
+        optional: true
+      '@xterm/xterm':
+        optional: true
+      chart.js:
+        optional: true
+      codemirror:
+        optional: true
+      highlight.js:
+        optional: true
+      jsbarcode:
+        optional: true
+      markdown-it:
+        optional: true
+      material-symbols:
+        optional: true
+      qrcode-generator:
+        optional: true
+      vue-chartjs:
+        optional: true
 
   '@mapbox/node-pre-gyp@2.0.3':
     resolution: {integrity: sha512-uwPAhccfFJlsfCxMYTwOdVfOz3xqyj8xYL3zJj8f0pb30tLohnnFPhLuqp4/qoEz8sNxe4SESZedcBojRefIzg==}
@@ -3186,6 +3295,14 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
+  shape-morph@0.4.0:
+    resolution: {integrity: sha512-+vXx85+sLD0ssMHprfLwpBnZc1moFCe0VaWVjoaDSTK9gudZue1c3DvKDn0kN9ItPsL/Y1iarFMnyz8dej/tMw==}
+    peerDependencies:
+      react: '>=18.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -4380,6 +4497,14 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
+
+  '@m3ui-vue/m3ui-vue@1.0.2(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))':
+    dependencies:
+      shape-morph: 0.4.0
+      tailwindcss: 4.3.3
+      vue: 3.5.44(typescript@6.0.3)
+    transitivePeerDependencies:
+      - react
 
   '@mapbox/node-pre-gyp@2.0.3(supports-color@10.2.2)':
     dependencies:
@@ -7838,6 +7963,8 @@ snapshots:
       - supports-color
 
   setprototypeof@1.2.0: {}
+
+  shape-morph@0.4.0: {}
 
   shebang-command@2.0.0:
     dependencies:

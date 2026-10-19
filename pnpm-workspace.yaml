@@ -3,3 +3,7 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+# Our own packages: the module is often released right after the library, inside pnpm's one-day release-age window
+minimumReleaseAgeExclude:
+  - '@m3ui-vue/*'

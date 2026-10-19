@@ -2,8 +2,8 @@ import { dirname } from 'node:path'
 import { createRequire } from 'node:module'
 import tailwindcss from '@tailwindcss/vite'
 
-// The library is linked from ../m3ui-vue, which has its own Vue: point it at the app's one, as an installed package
-// (with Vue as a peer) resolves it
+// One Vue for the app and the library. Installed from npm that's already the case; linked from ../m3ui-vue (to try
+// unreleased changes) the library would load that repo's own copy, and server rendering breaks with two
 const vue = dirname(createRequire(import.meta.url).resolve('vue/package.json'))
 
 export default defineNuxtConfig({

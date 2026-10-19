@@ -8,7 +8,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@m3ui-vue/m3ui-vue": "link:../../m3ui-vue",
+    "@m3ui-vue/m3ui-vue": "^1.0.2",
     "@m3ui-vue/nuxt": "workspace:*",
     "@tailwindcss/vite": "^4.3.3",
     "nuxt": "^4.6.2",
