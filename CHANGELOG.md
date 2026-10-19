@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.1.1] - 2026-10-19
+
+### Changed
+- The README says to keep `vue` in the app's own dependencies. No changes to the module itself; the first release published from CI through npm's trusted publishing
+
 ## [0.1.0] - 2026-10-19
 
 ### Added
