@@ -32,6 +32,9 @@ export default defineNuxtConfig({
 })
 ```
 
+Keep `vue` in your app's own dependencies, as Nuxt's starter does: with pnpm, an app that only gets Vue through
+`nuxt` can end up loading a second copy on the server, which fails to render.
+
 The theme and the palettes are Tailwind CSS, so they go in your own stylesheet, after Tailwind:
 
 ```css
