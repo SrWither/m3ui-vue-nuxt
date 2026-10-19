@@ -1,0 +1,59 @@
+{
+  "name": "@m3ui-vue/nuxt",
+  "version": "0.1.0",
+  "description": "Nuxt module for m3ui-vue, the Material Design 3 component library for Vue 3 + Tailwind CSS v4",
+  "keywords": ["nuxt", "nuxt-module", "material-design", "material-3", "m3", "vue", "tailwindcss"],
+  "homepage": "https://m3ui.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrWither/m3ui-vue-nuxt.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nuxt-module-build prepare && nuxt-module-build build",
+    "prepack": "pnpm build",
+    "dev": "pnpm dev:prepare && nuxt dev playground",
+    "dev:build": "nuxt build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^4.6.2"
+  },
+  "peerDependencies": {
+    "@m3ui-vue/m3ui-vue": "^1.0.2"
+  },
+  "devDependencies": {
+    "@m3ui-vue/m3ui-vue": "link:../m3ui-vue",
+    "@nuxt/module-builder": "^1.0.3",
+    "@nuxt/schema": "^4.6.2",
+    "@nuxt/test-utils": "^4.3.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.0.0",
+    "nuxt": "^4.6.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5",
+    "vue-tsc": "^3.3.12"
+  }
+}
