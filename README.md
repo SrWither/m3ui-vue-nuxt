@@ -132,6 +132,10 @@ pnpm test          # builds a fixture app and checks its server-rendered HTML
 pnpm test:types
 ```
 
+`dev:prepare` stubs the module (it loads `src/module.ts` on the fly), and with the stub the editor types the `m3ui`
+options in the playground's `nuxt.config.ts` loosely (no autocompletion of palette ids, for instance). `pnpm build`
+followed by `nuxi prepare playground` types them like the published package.
+
 ## License
 
 MIT
