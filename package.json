@@ -52,7 +52,7 @@
     "@m3ui-vue/m3ui-vue": "^1.0.3"
   },
   "devDependencies": {
-    "@m3ui-vue/m3ui-vue": "^1.0.2",
+    "@m3ui-vue/m3ui-vue": "^1.0.3",
     "@nuxt/module-builder": "^1.0.3",
     "@nuxt/schema": "^4.6.2",
     "@nuxt/test-utils": "^4.3.4",
