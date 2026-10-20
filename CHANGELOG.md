@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - The README marks server-side rendering and this module as beta, with where to report problems
+- A browser test hydrates a fixture app in Chromium (overlays open on load, cookies of a returning user, a phone) and fails on any hydration warning. It found two bugs fixed in `@m3ui-vue/m3ui-vue` 1.0.3: an `MLightbox` open on load, and a choice kept only in a cookie being reset
 
 ## [0.1.1] - 2026-10-19
 
