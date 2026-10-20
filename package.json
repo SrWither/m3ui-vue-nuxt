@@ -49,10 +49,10 @@
     "@nuxt/kit": "^4.6.2"
   },
   "peerDependencies": {
-    "@m3ui-vue/m3ui-vue": "^1.1.0"
+    "@m3ui-vue/m3ui-vue": "^1.1.2"
   },
   "devDependencies": {
-    "@m3ui-vue/m3ui-vue": "^1.1.0",
+    "@m3ui-vue/m3ui-vue": "^1.1.2",
     "@nuxt/module-builder": "^1.0.3",
     "@nuxt/schema": "^4.6.2",
     "@nuxt/test-utils": "^4.3.4",
