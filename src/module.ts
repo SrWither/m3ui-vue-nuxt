@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { addComponent, addImports, addPlugin, addTemplate, addTypeTemplate, createResolver, defineNuxtModule, resolvePath, tryResolveModule, useLogger } from '@nuxt/kit'
+import { addComponent, addImports, addPlugin, addTemplate, addTypeTemplate, createResolver, defineNuxtModule, hasNuxtModule, resolvePath, tryResolveModule, useLogger } from '@nuxt/kit'
 import type { M3Locale, M3UIOptions } from '@m3ui-vue/m3ui-vue'
 
 const LIB = '@m3ui-vue/m3ui-vue'
@@ -23,9 +23,10 @@ const OPTIONAL_ENTRIES: Record<string, string> = {
 export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
   /**
    * Built-in text: a preset's language code (`'es'`, `'fr'`, `'pt'`, `'de'`, `'ja'`, `'zh'`, `'ko'`; `'en'` is the
-   * default) or your own strings, which override English.
+   * default), your own strings, which override English, or `'auto'` to follow `@nuxtjs/i18n`'s current language
+   * (by its language tag, `es-AR` → `es`; English where there's no preset), switching with it.
    */
-  locale?: LocalePreset | Partial<M3Locale>
+  locale?: LocalePreset | 'auto' | Partial<M3Locale>
   /** Auto-import the components (`<MButton>`…). Each one is bundled only where it's used. Default `true`. */
   components?: boolean
   /**
@@ -95,15 +96,24 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (css) nuxt.options.css.push(`${LIB}/styles`)
 
-    // The plugin's options, with the locale preset imported by name so only that one is bundled
-    const preset = typeof locale === 'string' && locale !== 'en' ? LOCALE_PRESETS[locale] : undefined
-    if (typeof locale === 'string' && locale !== 'en' && !preset) logger.warn(`Unknown locale preset '${locale}', using English`)
+    // The plugin's options, with the locale preset imported by name so only that one is bundled ('auto' needs them all)
+    const auto = locale === 'auto'
+    const preset = typeof locale === 'string' && locale !== 'en' && !auto ? LOCALE_PRESETS[locale] : undefined
+    if (typeof locale === 'string' && locale !== 'en' && !auto && !preset) logger.warn(`Unknown locale preset '${locale}', using English`)
+    if (auto) {
+      nuxt.hook('modules:done', () => {
+        if (!hasNuxtModule('@nuxtjs/i18n')) logger.warn(`locale: 'auto' follows @nuxtjs/i18n, which isn't installed: using English`)
+      })
+    }
     addTemplate({
       filename: 'm3ui.options.mjs',
       getContents: () => [
         preset ? `import { ${preset} } from '${LIB}/locales'` : '',
+        auto ? `import * as presets from '${LIB}/locales'` : '',
         `export const options = ${JSON.stringify(plugin)}`,
         `export const locale = ${preset ?? (typeof locale === 'object' ? JSON.stringify(locale) : 'undefined')}`,
+        `export const autoLocale = ${auto}`,
+        `export const localePresets = ${auto ? `{ ${Object.entries(LOCALE_PRESETS).map(([code, name]) => `${code}: presets.${name}`).join(', ')} }` : '{}'}`,
         `export const cookies = ${JSON.stringify(cookies)}`,
         `export const themeScript = ${JSON.stringify(themeScript)}`,
       ].join('\n'),
@@ -114,6 +124,8 @@ export default defineNuxtModule<ModuleOptions>({
         `declare module '#build/m3ui.options.mjs' {`,
         `  export const options: import('${LIB}').M3UIOptions`,
         `  export const locale: Partial<import('${LIB}').M3Locale> | undefined`,
+        `  export const autoLocale: boolean`,
+        `  export const localePresets: Record<string, Partial<import('${LIB}').M3Locale>>`,
         `  export const cookies: boolean`,
         `  export const themeScript: boolean`,
         `}`,

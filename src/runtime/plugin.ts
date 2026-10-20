@@ -1,6 +1,12 @@
+import { computed } from 'vue'
 import { createM3UI, themeInitScript, type M3InitialState } from '@m3ui-vue/m3ui-vue'
 import { defineNuxtPlugin, useCookie, useHead } from '#app'
-import { cookies, locale, options, themeScript } from '#build/m3ui.options.mjs'
+import { autoLocale, cookies, locale, localePresets, options, themeScript } from '#build/m3ui.options.mjs'
+
+interface I18n {
+  locale: { value: string }
+  localeProperties?: { value: { language?: string } }
+}
 
 export default defineNuxtPlugin({
   name: 'm3ui',
@@ -13,8 +19,18 @@ export default defineNuxtPlugin({
       ? { theme: read('m3-theme'), palette: read('m3-palette'), contrast: read('m3-contrast') } as M3InitialState
       : undefined
 
+    // locale: 'auto' follows @nuxtjs/i18n's current language. Read lazily, on the first render: its plugin runs after
+    // this one
+    const appLocale = autoLocale
+      ? computed(() => {
+          const i18n = (nuxtApp as { $i18n?: I18n }).$i18n
+          const tag = i18n?.localeProperties?.value.language || i18n?.locale.value || ''
+          return localePresets[tag.toLowerCase().split('-')[0]!] ?? {}
+        })
+      : locale
+
     // isHydrating: the adaptive layouts and the composables render their first client frame like the server did
-    nuxtApp.vueApp.use(createM3UI({ ...options, locale, cookies, initialState, isHydrating: () => !!nuxtApp.isHydrating }))
+    nuxtApp.vueApp.use(createM3UI({ ...options, locale: appLocale, cookies, initialState, isHydrating: () => !!nuxtApp.isHydrating }))
 
     // Before the first paint: the server-rendered page otherwise shows light mode and the default palette until the
     // app's JS applies the user's choice

@@ -97,6 +97,8 @@
                   </div>
                 </MCard>
               </section>
+              <!-- Built-in text: follows the language picked in Settings -->
+              <MPagination v-model:page="page" :per-page="6" :total="128" />
             </template>
 
             <!-- Settings -->
@@ -107,6 +109,16 @@
                     Appearance
                   </h2>
                   <MSegmentedButton v-model="theme" :options="themeOptions" />
+                </div>
+
+                <div>
+                  <h3 class="mb-1 text-title-medium">
+                    Language
+                  </h3>
+                  <p class="mb-4 text-body-medium text-on-surface-variant">
+                    The components' own text follows @nuxtjs/i18n: try the pagination in Explore or the date picker in a new trip.
+                  </p>
+                  <MSegmentedButton v-model="language" :options="languages" />
                 </div>
 
                 <div>
@@ -209,6 +221,11 @@ const ideas = [
   { title: 'City breaks', icon: 'location_city', places: 152 },
   { title: 'Wildlife', icon: 'pets', places: 33 },
 ]
+
+const { locale, locales, setLocale } = useI18n()
+const languages = computed(() => locales.value.map(l => ({ value: l.code, label: l.name ?? l.code })))
+const language = computed({ get: () => locale.value, set: code => setLocale(code) })
+const page = ref(1)
 
 const alerts = ref(true)
 const offline = ref(false)

@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  modules: ['@m3ui-vue/nuxt'],
+  modules: ['@m3ui-vue/nuxt', '@nuxtjs/i18n'],
   css: ['~/assets/main.css'],
   vite: { plugins: [tailwindcss()] },
   app: {
@@ -14,7 +14,19 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   compatibilityDate: 'latest',
+  // The app's own text stays in English here: i18n only drives the components' built-in text (locale: 'auto')
+  i18n: {
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English' },
+      { code: 'es', language: 'es-ES', name: 'Español' },
+      { code: 'fr', language: 'fr-FR', name: 'Français' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch' },
+    ],
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+  },
   m3ui: {
     palette: 'teal',
+    locale: 'auto',
   },
 })
