@@ -21,9 +21,15 @@ describe('ssr', async () => {
 
   it('auto-imports the prefixed composables', async () => {
     const html = await $fetch<string>('/')
-    // The server doesn't know the user's choice: the defaults until the client applies it
+    // A first visit (no cookies): the configured defaults
     expect(html).toContain('<p id="theme">system</p>')
-    expect(html).toContain('<p id="palette">purple</p>')
+    expect(html).toContain('<p id="palette">red</p>')
+  })
+
+  it('renders the user\'s choice from the cookies', async () => {
+    const html = await $fetch<string>('/', { headers: { cookie: 'm3-theme=dark; m3-palette=blue; m3-contrast=high' } })
+    expect(html).toContain('<p id="theme">dark</p>')
+    expect(html).toContain('<p id="palette">blue</p>')
   })
 
   it('inlines the theme script in <head> with the plugin defaults', async () => {

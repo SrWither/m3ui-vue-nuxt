@@ -7,10 +7,7 @@
     <div class="flex h-full flex-col overflow-y-auto bg-surface text-on-surface">
       <MTopAppBar title="Wander" subtitle="Plan your next escape">
         <template #actions>
-          <!-- The server can't know the stored theme: render what depends on it on the client -->
-          <ClientOnly>
-            <MIconButton :icon="themeIcons[theme]" label="Switch theme" @click="cycle" />
-          </ClientOnly>
+          <MIconButton :icon="themeIcons[theme]" label="Switch theme" @click="cycle" />
           <MAvatar name="Alex Rivera" :size="32" class="mx-2" />
         </template>
       </MTopAppBar>
@@ -109,9 +106,7 @@
                   <h2 class="mb-3 text-title-large">
                     Appearance
                   </h2>
-                  <ClientOnly>
-                    <MSegmentedButton v-model="theme" :options="themeOptions" />
-                  </ClientOnly>
+                  <MSegmentedButton v-model="theme" :options="themeOptions" />
                 </div>
 
                 <div>
@@ -121,24 +116,22 @@
                   <p class="mb-4 text-body-medium text-on-surface-variant">
                     Saved on this device and applied before the page paints, even when it's rendered on the server.
                   </p>
-                  <ClientOnly>
-                    <div class="flex flex-wrap gap-3">
-                      <button
-                        v-for="p in palettes"
-                        :key="p.id"
-                        type="button"
-                        class="grid size-12 cursor-pointer place-items-center rounded-full ring-offset-2 ring-offset-surface transition-transform hover:scale-105"
-                        :class="palette === p.id ? 'ring-2 ring-on-surface' : ''"
-                        :style="{ background: p.seed }"
-                        :title="p.label"
-                        :aria-label="p.label"
-                        :aria-pressed="palette === p.id"
-                        @click="set(p.id)"
-                      >
-                        <MIcon v-if="palette === p.id" name="check" :size="20" class="text-white" />
-                      </button>
-                    </div>
-                  </ClientOnly>
+                  <div class="flex flex-wrap gap-3">
+                    <button
+                      v-for="p in palettes"
+                      :key="p.id"
+                      type="button"
+                      class="grid size-12 cursor-pointer place-items-center rounded-full ring-offset-2 ring-offset-surface transition-transform hover:scale-105"
+                      :class="palette === p.id ? 'ring-2 ring-on-surface' : ''"
+                      :style="{ background: p.seed }"
+                      :title="p.label"
+                      :aria-label="p.label"
+                      :aria-pressed="palette === p.id"
+                      @click="set(p.id)"
+                    >
+                      <MIcon v-if="palette === p.id" name="check" :size="20" class="text-white" />
+                    </button>
+                  </div>
                 </div>
 
                 <MCard variant="outlined">

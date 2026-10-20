@@ -91,23 +91,33 @@ Everything `createM3UI()` takes, plus what the module itself does:
 | `components` | `true` | Auto-import the components |
 | `composables` | `{ prefix: 'M3' }` | Auto-import the composables with this prefix; `false` to import them yourself |
 | `css` | `true` | Add `@m3ui-vue/m3ui-vue/styles` |
+| `cookies` | `true` | Keep the theme, palette and contrast in cookies too, so the server renders with them |
 | `themeScript` | `true` | Inline `themeInitScript()` in `<head>` |
 
 ## Server-side rendering
 
-The user's theme lives in `localStorage`, which the server can't read. The inlined script applies it to `<html>`
-before the page paints, so there's no flash of the default theme, but the composables still start from the defaults
-on the server (`theme` is `'system'`, `palette` is `'purple'`) and switch to the user's choice when the app hydrates.
-Render anything that depends on them inside `<ClientOnly>`, like an icon showing the current theme:
+The library keeps the user's theme, palette and contrast in `localStorage`, and with `cookies` (on by default) in
+cookies too, which the server reads. So `useM3Theme()` and `useM3ColorPalette()` report the user's choice while the
+page renders on the server, and anything built from them (a theme toggle's icon, the selected palette swatch) hydrates
+without mismatches, no `<ClientOnly>` needed:
 
 ```vue
-<ClientOnly>
+<template>
   <MIconButton :icon="theme === 'dark' ? 'dark_mode' : 'light_mode'" label="Theme" @click="cycle" />
-</ClientOnly>
+</template>
+
+<script setup lang="ts">
+const { theme, cycle } = useM3Theme()
+</script>
 ```
 
+The inlined script puts dark mode, the palette and the contrast on `<html>` before the page paints. What the server
+can't know is the system's preferences: with the `'system'` theme or contrast, `theme` is `'system'` there (whether
+the page ends up dark is decided in the browser), and `activeContrast` is `'standard'`. If cookies were cleared but
+`localStorage` wasn't, the first render shows the defaults and switches to the stored choice once hydrated.
+
 The adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) measure their own size, which the server
-doesn't know either: they render their compact layout there and adapt on the client.
+doesn't know: they render their compact layout there and adapt on the client.
 
 A `seed` default can't be generated before the app loads: on the first visit the page shows the baseline palette
 until it does (later visits use the cached scheme).

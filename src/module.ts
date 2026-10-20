@@ -37,6 +37,12 @@ export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
   /** Add the components' own stylesheet (`@m3ui-vue/m3ui-vue/styles`). Default `true`. */
   css?: boolean
   /**
+   * Remember the theme, the palette and the contrast level in cookies too, so the server renders with the user's
+   * choice: `useM3Theme()` and `useM3ColorPalette()` report it during server rendering and hydration, and UI built
+   * from them needs no `<ClientOnly>`. Default `true`.
+   */
+  cookies?: boolean
+  /**
    * Inline `themeInitScript()` in `<head>`, so dark mode, the palette and the contrast level the user picked are
    * on the server-rendered page before the first paint. Default `true`.
    */
@@ -53,12 +59,13 @@ export default defineNuxtModule<ModuleOptions>({
     components: true,
     composables: { prefix: 'M3' },
     css: true,
+    cookies: true,
     themeScript: true,
   },
   async setup(options, nuxt) {
     const logger = useLogger('@m3ui-vue/nuxt')
     const resolver = createResolver(import.meta.url)
-    const { components, composables, css, themeScript, locale, ...plugin } = options
+    const { components, composables, css, cookies, themeScript, locale, ...plugin } = options
 
     // The library's own API index (dist/api.json) lists every component and composable with its entry point
     const entry = await resolvePath(LIB, { extensions: ['.js', '.mjs'] })
@@ -97,6 +104,7 @@ export default defineNuxtModule<ModuleOptions>({
         preset ? `import { ${preset} } from '${LIB}/locales'` : '',
         `export const options = ${JSON.stringify(plugin)}`,
         `export const locale = ${preset ?? (typeof locale === 'object' ? JSON.stringify(locale) : 'undefined')}`,
+        `export const cookies = ${JSON.stringify(cookies)}`,
         `export const themeScript = ${JSON.stringify(themeScript)}`,
       ].join('\n'),
     })
@@ -106,6 +114,7 @@ export default defineNuxtModule<ModuleOptions>({
         `declare module '#build/m3ui.options.mjs' {`,
         `  export const options: import('${LIB}').M3UIOptions`,
         `  export const locale: Partial<import('${LIB}').M3Locale> | undefined`,
+        `  export const cookies: boolean`,
         `  export const themeScript: boolean`,
         `}`,
       ].join('\n'),
