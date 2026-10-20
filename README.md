@@ -10,6 +10,11 @@ Nuxt module for [m3ui-vue](https://m3ui.dev), the Material Design 3 component li
 It installs the library's plugin, auto-imports its components and composables, adds its stylesheet, and puts the
 user's theme (dark mode, palette, contrast) on the server-rendered page before the first paint.
 
+> **Beta.** Server-side rendering and this module are new. Every component renders on the server and is tested
+> there, but real apps will find cases we haven't: if something breaks, renders differently on the server, or Vue
+> warns about a hydration mismatch, please [open an issue](https://github.com/SrWither/m3ui-vue-nuxt/issues) (or on
+> [m3ui-vue](https://github.com/SrWither/m3ui-vue/issues) for a component).
+
 ## Install
 
 ```bash
@@ -136,7 +141,9 @@ the page ends up dark is decided in the browser), and `activeContrast` is `'stan
 `localStorage` wasn't, the first render shows the defaults and switches to the stored choice once hydrated.
 
 The adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) measure their own size, which the server
-doesn't know: they render their compact layout there and adapt on the client.
+can't. With `cookies`, the window's size is kept in a cookie too (`m3-viewport`), so from the second visit on they
+render on the server for the user's screen (one in a narrower column corrects itself on the client). On a first visit
+they render their compact layout and adapt once the page is interactive.
 
 A `seed` default can't be generated before the app loads: on the first visit the page shows the baseline palette
 until it does (later visits use the cached scheme).

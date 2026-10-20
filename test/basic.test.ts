@@ -14,6 +14,13 @@ describe('ssr', async () => {
     expect(html).toContain('Abierto')
   })
 
+  it('renders the adaptive layouts for the window size in the cookie', async () => {
+    // A desktop: a rail beside the content (a row); no cookie: compact (a column)
+    const suite = (html: string) => html.match(/<div[^>]*id="suite"[^>]*>/)?.[0]
+    expect(suite(await $fetch<string>('/', { headers: { cookie: 'm3-viewport=1280x800' } }))).toContain('flex-row')
+    expect(suite(await $fetch<string>('/'))).toContain('flex-col')
+  })
+
   it('applies the locale preset', async () => {
     const html = await $fetch<string>('/')
     expect(html).toContain('Página siguiente')

@@ -6,6 +6,7 @@
     <MLightbox :model-value="true" :items="[{ src: 'a.jpg' }]" />
     <p id="theme">{{ theme }}</p>
     <p id="palette">{{ palette }}</p>
+    <MNavigationSuite id="suite" model-value="a" :items="[{ value: 'a', label: 'A', icon: 'home' }]" />
   </div>
 </template>
 

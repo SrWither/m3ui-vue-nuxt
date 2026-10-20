@@ -15,8 +15,15 @@ export default defineNuxtPlugin({
     // The user's choice from the cookies the library writes, read the same on the server and the client, so both
     // render it (and the client switches to what it has stored once hydrated)
     const read = (name: string) => useCookie<string | undefined>(name, { decode: decodeURIComponent, readonly: true }).value
+    // The window's size (`1280x800`): the adaptive layouts render for it instead of compact
+    const [width, height] = (read('m3-viewport') ?? '').split('x').map(Number)
     const initialState = cookies
-      ? { theme: read('m3-theme'), palette: read('m3-palette'), contrast: read('m3-contrast') } as M3InitialState
+      ? {
+          theme: read('m3-theme'),
+          palette: read('m3-palette'),
+          contrast: read('m3-contrast'),
+          viewport: width && height ? { width, height } : undefined,
+        } as M3InitialState
       : undefined
 
     // locale: 'auto' follows @nuxtjs/i18n's current language. Read lazily, on the first render: its plugin runs after

@@ -40,7 +40,8 @@ export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
   /**
    * Remember the theme, the palette and the contrast level in cookies too, so the server renders with the user's
    * choice: `useM3Theme()` and `useM3ColorPalette()` report it during server rendering and hydration, and UI built
-   * from them needs no `<ClientOnly>`. Default `true`.
+   * from them needs no `<ClientOnly>`. The window's size goes in one too, so the adaptive layouts (`MNavigationSuite`,
+   * `MListDetail`, `MSupportingPane`) render for the user's screen instead of compact. Default `true`.
    */
   cookies?: boolean
   /**
