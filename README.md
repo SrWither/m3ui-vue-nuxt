@@ -138,7 +138,9 @@ const { theme, cycle } = useM3Theme()
 The inlined script puts dark mode, the palette and the contrast on `<html>` before the page paints. What the server
 can't know is the system's preferences: with the `'system'` theme or contrast, `theme` is `'system'` there (whether
 the page ends up dark is decided in the browser), and `activeContrast` is `'standard'`. If cookies were cleared but
-`localStorage` wasn't, the first render shows the defaults and switches to the stored choice once hydrated.
+`localStorage` wasn't, the first render shows the defaults and switches to the stored choice once hydrated. The other way
+around, a choice only in the cookies is used too: your server can set `m3-theme`, `m3-palette` or `m3-contrast` to apply
+a theme saved in the user's account, for instance.
 
 The adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) measure their own size, which the server
 can't. With `cookies`, the window's size is kept in a cookie too (`m3-viewport`), so from the second visit on they
@@ -154,9 +156,13 @@ until it does (later visits use the cached scheme).
 pnpm install
 pnpm dev:prepare   # stub the module and generate types
 pnpm dev           # the playground, with the library linked from ../m3ui-vue
-pnpm test          # builds a fixture app and checks its server-rendered HTML
+pnpm test          # builds fixture apps, checks their server-rendered HTML and hydrates one in Chromium
 pnpm test:types
 ```
+
+The hydration test (`test/browser.test.ts`) drives the Chromium already on the machine through `playwright-core` (no
+browser download): `/usr/bin/chromium` and the usual paths, or `CHROMIUM_PATH`. It fails on any hydration warning
+or page error, including overlays open on load; without a Chromium it's skipped.
 
 `dev:prepare` stubs the module (it loads `src/module.ts` on the fly), and with the stub the editor types the `m3ui`
 options in the playground's `nuxt.config.ts` loosely (no autocompletion of palette ids, for instance). `pnpm build`
