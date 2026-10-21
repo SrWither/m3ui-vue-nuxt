@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.4] - Unreleased
+
+### Fixed
+- The `MMap` components and the `useM3Map`, `useM3MapLayers` and `useM3MapFilter` composables were registered even without `maplibre-gl` installed, so using one failed at build time on a missing import instead of being unknown. They're now registered only with it, like the other optional entry points; the README lists them, and `useM3Confetti`
+
 ## [0.2.0] - 2026-10-19
 
 ### Added
