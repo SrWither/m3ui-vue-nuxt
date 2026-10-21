@@ -18,6 +18,7 @@ const OPTIONAL_ENTRIES: Record<string, string> = {
   [`${LIB}/terminal`]: '@xterm/xterm',
   [`${LIB}/qrcode`]: 'qrcode-generator',
   [`${LIB}/barcode`]: 'jsbarcode',
+  [`${LIB}/map`]: 'maplibre-gl',
 }
 
 export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
@@ -80,19 +81,29 @@ export default defineNuxtModule<ModuleOptions>({
       return
     }
 
+    // An optional entry point counts only when its peer dependency is installed
+    const available = new Map<string, boolean>()
+    const isAvailable = async (from: string) => {
+      const peer = OPTIONAL_ENTRIES[from]
+      if (!peer) return true
+      if (!available.has(from)) available.set(from, !!(await tryResolveModule(peer, nuxt.options.modulesDir)))
+      return available.get(from)!
+    }
+
     if (components) {
       for (const component of api.components) {
-        const peer = OPTIONAL_ENTRIES[component.import]
-        if (peer && !(await tryResolveModule(peer, nuxt.options.modulesDir))) continue
+        if (!(await isAvailable(component.import))) continue
         addComponent({ name: component.name, export: component.name, filePath: component.import })
       }
     }
 
     if (composables) {
       const prefix = typeof composables === 'object' ? composables.prefix ?? '' : 'M3'
-      addImports(api.values
-        .filter(value => /^use[A-Z]/.test(value.name))
-        .map(value => ({ name: value.name, as: `use${prefix}${value.name.slice(3)}`, from: value.import })))
+      const values = []
+      for (const value of api.values) {
+        if (/^use[A-Z]/.test(value.name) && await isAvailable(value.import)) values.push(value)
+      }
+      addImports(values.map(value => ({ name: value.name, as: `use${prefix}${value.name.slice(3)}`, from: value.import })))
     }
 
     if (css) nuxt.options.css.push(`${LIB}/styles`)

@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { $fetch, setup } from '@nuxt/test-utils/e2e'
+import { $fetch, setup, useTestContext } from '@nuxt/test-utils/e2e'
 
 describe('ssr', async () => {
   await setup({
@@ -49,5 +51,17 @@ describe('ssr', async () => {
   it('adds the components stylesheet', async () => {
     const html = await $fetch<string>('/')
     expect(html).toMatch(/<link[^>]+stylesheet|<style/)
+  })
+
+  it('skips the components and composables of an entry point whose dependency isn\'t installed', () => {
+    // Neither chart.js nor maplibre-gl is installed here
+    const buildDir = useTestContext().nuxt!.options.buildDir
+    const components = readFileSync(join(buildDir, 'components.d.ts'), 'utf8')
+    const imports = readFileSync(join(buildDir, 'types/imports.d.ts'), 'utf8')
+    expect(components).toContain('MButton')
+    expect(components).not.toContain('MChart')
+    expect(components).not.toContain('MMap')
+    expect(imports).toContain('useM3Theme')
+    expect(imports).not.toContain('useM3Map')
   })
 })

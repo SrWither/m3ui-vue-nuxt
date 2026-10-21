@@ -67,8 +67,8 @@ const toast = useM3Toast()
 ```
 
 Each component is bundled only where it's used. `MChart`, `MCodeEditor`, `MJsonEditor`, `MMarkdown`,
-`MRichTextEditor`, `MTerminal`, `MQRCode` and `MBarcode` are registered when their optional dependency is installed
-(see the library's README).
+`MRichTextEditor`, `MTerminal`, `MQRCode`, `MBarcode` and the `MMap` family are registered when their optional
+dependency is installed (see the library's README); so are `useMap`, `useMapLayers` and `useMapFilter`.
 
 The composables are prefixed so they can't clash with other modules (`useDevice`, `useTheme`… are common names):
 
@@ -81,7 +81,9 @@ The composables are prefixed so they can't clash with other modules (`useDevice`
 | `useLocale` | `useM3Locale` |
 | `useDevice` | `useM3Device` |
 | `useWindowSizeClass` | `useM3WindowSizeClass` |
+| `useConfetti` | `useM3Confetti` |
 | `useFieldBg`, `useDebounce`, `usePageProgress`, `useSpring` | `useM3FieldBg`, `useM3Debounce`, `useM3PageProgress`, `useM3Spring` |
+| `useMap`, `useMapLayers`, `useMapFilter` (with `maplibre-gl`) | `useM3Map`, `useM3MapLayers`, `useM3MapFilter` |
 
 Anything else (types, `palettes`, `motionSprings`…) is imported from `@m3ui-vue/m3ui-vue` as usual.
 
