@@ -16,6 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/SrWither/m3ui-vue-nuxt.git"
   },
+  "funding": "https://github.com/sponsors/SrWither",
   "license": "MIT",
   "type": "module",
   "exports": {
