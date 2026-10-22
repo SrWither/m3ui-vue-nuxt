@@ -84,7 +84,7 @@ The composables are prefixed so they can't clash with other modules (`useDevice`
 | `useWindowSizeClass` | `useM3WindowSizeClass` |
 | `useConfetti` | `useM3Confetti` |
 | `useContainerTransform` | `useM3ContainerTransform` |
-| `useFieldBg`, `useDebounce`, `useAutoGrow`, `usePageProgress`, `useSpring` | `useM3FieldBg`, `useM3Debounce`, `useM3AutoGrow`, `useM3PageProgress`, `useM3Spring` |
+| `useFieldBg`, `useDebounce`, `useAutoGrow`, `usePageProgress`, `useSpring`, `useScrollReveal` | `useM3FieldBg`, `useM3Debounce`, `useM3AutoGrow`, `useM3PageProgress`, `useM3Spring`, `useM3ScrollReveal` |
 | `useMap`, `useMapLayers`, `useMapFilter` (with `maplibre-gl`) | `useM3Map`, `useM3MapLayers`, `useM3MapFilter` |
 
 Anything else (types, `palettes`, `motionSprings`…) is imported from `@m3ui-vue/m3ui-vue` as usual.
