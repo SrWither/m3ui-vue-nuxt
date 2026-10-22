@@ -13,8 +13,8 @@ importers:
         version: 4.6.2(@nuxt/schema@4.6.2)(confbox@0.2.4)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.141.0)(rolldown@1.2.14)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.14)(rollup@4.64.10)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
     devDependencies:
       '@m3ui-vue/m3ui-vue':
-        specifier: ^1.1.3
-        version: 1.1.3(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))
+        specifier: ^1.2.0
+        version: 1.2.0(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))
       '@nuxt/module-builder':
         specifier: ^1.0.3
         version: 1.0.3(@nuxt/cli@3.37.0(@nuxt/schema@4.6.2)(magicast@0.5.5)(supports-color@10.2.2))(@volar/typescript@2.4.28(typescript@6.0.3))(@vue/compiler-core@3.5.44)(@vue/language-core@3.3.13)(esbuild@0.28.2)(rolldown@1.2.14)(rollup@4.64.10)(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
@@ -690,6 +690,118 @@ packages:
 
   '@m3ui-vue/m3ui-vue@1.1.3':
     resolution: {integrity: sha512-bxmFzIzT6mBXgRrZL7cHhuPWRPSONqWWYCzS17rjUxiJQfiEFtwI7QV3RxW5VhZTDQ+266XtAHMqQrw/LLlxtg==}
+    peerDependencies:
+      '@codemirror/commands': '*'
+      '@codemirror/lang-cpp': '*'
+      '@codemirror/lang-css': '*'
+      '@codemirror/lang-html': '*'
+      '@codemirror/lang-javascript': '*'
+      '@codemirror/lang-json': '*'
+      '@codemirror/lang-python': '*'
+      '@codemirror/lang-rust': '*'
+      '@codemirror/lang-vue': '*'
+      '@codemirror/language': '*'
+      '@codemirror/legacy-modes': '*'
+      '@codemirror/state': '*'
+      '@codemirror/theme-one-dark': '*'
+      '@codemirror/view': '*'
+      '@tiptap/extension-color': '*'
+      '@tiptap/extension-highlight': '*'
+      '@tiptap/extension-image': '*'
+      '@tiptap/extension-link': '*'
+      '@tiptap/extension-placeholder': '*'
+      '@tiptap/extension-text-align': '*'
+      '@tiptap/extension-text-style': '*'
+      '@tiptap/extension-underline': '*'
+      '@tiptap/starter-kit': '*'
+      '@tiptap/vue-3': '*'
+      '@xterm/addon-fit': '*'
+      '@xterm/xterm': '*'
+      chart.js: '*'
+      codemirror: '*'
+      highlight.js: '*'
+      jsbarcode: '*'
+      maplibre-gl: ^5.0.0
+      markdown-it: '*'
+      material-symbols: '*'
+      qrcode-generator: '*'
+      tailwindcss: ^4.0.0
+      vue: ^3.5.0
+      vue-chartjs: '*'
+    peerDependenciesMeta:
+      '@codemirror/commands':
+        optional: true
+      '@codemirror/lang-cpp':
+        optional: true
+      '@codemirror/lang-css':
+        optional: true
+      '@codemirror/lang-html':
+        optional: true
+      '@codemirror/lang-javascript':
+        optional: true
+      '@codemirror/lang-json':
+        optional: true
+      '@codemirror/lang-python':
+        optional: true
+      '@codemirror/lang-rust':
+        optional: true
+      '@codemirror/lang-vue':
+        optional: true
+      '@codemirror/language':
+        optional: true
+      '@codemirror/legacy-modes':
+        optional: true
+      '@codemirror/state':
+        optional: true
+      '@codemirror/theme-one-dark':
+        optional: true
+      '@codemirror/view':
+        optional: true
+      '@tiptap/extension-color':
+        optional: true
+      '@tiptap/extension-highlight':
+        optional: true
+      '@tiptap/extension-image':
+        optional: true
+      '@tiptap/extension-link':
+        optional: true
+      '@tiptap/extension-placeholder':
+        optional: true
+      '@tiptap/extension-text-align':
+        optional: true
+      '@tiptap/extension-text-style':
+        optional: true
+      '@tiptap/extension-underline':
+        optional: true
+      '@tiptap/starter-kit':
+        optional: true
+      '@tiptap/vue-3':
+        optional: true
+      '@xterm/addon-fit':
+        optional: true
+      '@xterm/xterm':
+        optional: true
+      chart.js:
+        optional: true
+      codemirror:
+        optional: true
+      highlight.js:
+        optional: true
+      jsbarcode:
+        optional: true
+      maplibre-gl:
+        optional: true
+      markdown-it:
+        optional: true
+      material-symbols:
+        optional: true
+      qrcode-generator:
+        optional: true
+      vue-chartjs:
+        optional: true
+
+  '@m3ui-vue/m3ui-vue@1.2.0':
+    resolution: {integrity: sha512-W4bZNwkO5539Y5ZDWJwUmeDvOuPbAcM03ZOf5j0g3BqhCBgmajx6Omids7eVQIucS8Q0ANVQqh35XJU/6QTPEQ==}
     peerDependencies:
       '@codemirror/commands': '*'
       '@codemirror/lang-cpp': '*'
@@ -5093,6 +5205,14 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.6.0
 
   '@m3ui-vue/m3ui-vue@1.1.3(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))':
+    dependencies:
+      shape-morph: 0.4.0
+      tailwindcss: 4.3.3
+      vue: 3.5.44(typescript@6.0.3)
+    transitivePeerDependencies:
+      - react
+
+  '@m3ui-vue/m3ui-vue@1.2.0(tailwindcss@4.3.3)(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       shape-morph: 0.4.0
       tailwindcss: 4.3.3
