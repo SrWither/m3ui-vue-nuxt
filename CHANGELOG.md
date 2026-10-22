@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.0] - Unreleased
+
+### Added
+- `viewportHints` (default `false`): asks Chromium for the window's exact size with client hints (`Accept-CH` / `Critical-CH: Sec-CH-Viewport-Width, Sec-CH-Viewport-Height`, plus `Vary`), so the adaptive layouts render at it on a first visit too, at the cost of that visit's request being repeated once. Needs `cookies`
+
+### Changed
+- **A first visit renders the adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) for the kind of device instead of compact**, with `@m3ui-vue/m3ui-vue` 1.2.0 or later (its `viewportFromHeaders`: phone, tablet or desktop from `Sec-CH-UA-Mobile` and the user agent): a desktop gets its rail from the first paint. The size is worked out on the server and handed to the client in the payload, so hydration matches. With an older library, as before
+
 ## [0.2.4] - 2026-10-21
 
 ### Fixed
