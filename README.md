@@ -75,6 +75,7 @@ The composables are prefixed so they can't clash with other modules (`useDevice`
 | Library | Auto-imported as |
 |---|---|
 | `useTheme` | `useM3Theme` |
+| `useThemeTokens` | `useM3ThemeTokens` |
 | `useColorPalette` | `useM3ColorPalette` |
 | `useToast` | `useM3Toast` |
 | `useNotification` | `useM3Notification` |
