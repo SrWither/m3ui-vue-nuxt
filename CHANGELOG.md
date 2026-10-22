@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [0.3.0] - Unreleased
+## [0.3.0] - 2026-10-22
 
 ### Added
 - `viewportHints` (default `false`): asks Chromium for the window's exact size with client hints (`Accept-CH` / `Critical-CH: Sec-CH-Viewport-Width, Sec-CH-Viewport-Height`, plus `Vary`), so the adaptive layouts render at it on a first visit too, at the cost of that visit's request being repeated once. Needs `cookies`
