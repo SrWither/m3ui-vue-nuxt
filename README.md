@@ -101,6 +101,7 @@ Everything `createM3UI()` takes, plus what the module itself does:
 | `composables` | `{ prefix: 'M3' }` | Auto-import the composables with this prefix; `false` to import them yourself |
 | `css` | `true` | Add `@m3ui-vue/m3ui-vue/styles` |
 | `cookies` | `true` | Keep the theme, palette and contrast in cookies too, so the server renders with them |
+| `viewportHints` | `false` | Ask Chromium for the window's exact size with client hints, so the adaptive layouts render at it on a first visit too (that visit's request is repeated once) |
 | `themeScript` | `true` | Inline `themeInitScript()` in `<head>` |
 
 ## With @nuxtjs/i18n
@@ -149,7 +150,11 @@ a theme saved in the user's account, for instance.
 The adaptive layouts (`MNavigationSuite`, `MListDetail`, `MSupportingPane`) measure their own size, which the server
 can't. With `cookies`, the window's size is kept in a cookie too (`m3-viewport`), so from the second visit on they
 render on the server for the user's screen (one in a narrower column corrects itself on the client). On a first visit
-they render their compact layout and adapt once the page is interactive.
+there's no cookie yet: with `@m3ui-vue/m3ui-vue` 1.2.0 or later the server renders for a size standing for the kind of
+device (a phone, a tablet or a desktop, from `Sec-CH-UA-Mobile` and the user agent), and the layout settles on the exact
+one once the page is interactive; before 1.2.0, the compact layout. With `viewportHints`, Chromium sends the exact size
+on a first visit too: the server asks for it (`Accept-CH` / `Critical-CH: Sec-CH-Viewport-Width,
+Sec-CH-Viewport-Height`) and Chromium repeats that first request once with it.
 
 A `seed` default can't be generated before the app loads: on the first visit the page shows the baseline palette
 until it does (later visits use the cached scheme).

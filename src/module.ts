@@ -46,6 +46,13 @@ export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
    */
   cookies?: boolean
   /**
+   * Ask Chromium for the window's exact size with client hints (`Accept-CH` / `Critical-CH: Sec-CH-Viewport-Width,
+   * Sec-CH-Viewport-Height`), so the adaptive layouts render at it even on a first visit. It costs that first
+   * visit one repeated request in Chromium; later visits have the size in a cookie anyway. Without it, a first
+   * visit renders at a size guessed from the kind of device (phone, tablet, desktop). Needs `cookies`. Default `false`.
+   */
+  viewportHints?: boolean
+  /**
    * Inline `themeInitScript()` in `<head>`, so dark mode, the palette and the contrast level the user picked are
    * on the server-rendered page before the first paint. Default `true`.
    */
@@ -63,12 +70,13 @@ export default defineNuxtModule<ModuleOptions>({
     composables: { prefix: 'M3' },
     css: true,
     cookies: true,
+    viewportHints: false,
     themeScript: true,
   },
   async setup(options, nuxt) {
     const logger = useLogger('@m3ui-vue/nuxt')
     const resolver = createResolver(import.meta.url)
-    const { components, composables, css, cookies, themeScript, locale, ...plugin } = options
+    const { components, composables, css, cookies, viewportHints, themeScript, locale, ...plugin } = options
 
     // The library's own API index (dist/api.json) lists every component and composable with its entry point
     const entry = await resolvePath(LIB, { extensions: ['.js', '.mjs'] })
@@ -127,6 +135,7 @@ export default defineNuxtModule<ModuleOptions>({
         `export const autoLocale = ${auto}`,
         `export const localePresets = ${auto ? `{ ${Object.entries(LOCALE_PRESETS).map(([code, name]) => `${code}: presets.${name}`).join(', ')} }` : '{}'}`,
         `export const cookies = ${JSON.stringify(cookies)}`,
+        `export const viewportHints = ${JSON.stringify(!!viewportHints)}`,
         `export const themeScript = ${JSON.stringify(themeScript)}`,
       ].join('\n'),
     })
@@ -139,6 +148,7 @@ export default defineNuxtModule<ModuleOptions>({
         `  export const autoLocale: boolean`,
         `  export const localePresets: Record<string, Partial<import('${LIB}').M3Locale>>`,
         `  export const cookies: boolean`,
+        `  export const viewportHints: boolean`,
         `  export const themeScript: boolean`,
         `}`,
       ].join('\n'),

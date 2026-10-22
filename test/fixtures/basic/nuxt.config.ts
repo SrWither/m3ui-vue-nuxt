@@ -5,5 +5,6 @@ export default defineNuxtConfig({
   m3ui: {
     palette: 'red',
     locale: 'es',
+    viewportHints: true,
   },
 })
