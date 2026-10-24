@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.0] - Unreleased
+
+### Added
+- `storagePrefix`: as in `createM3UI()` (`'shop'` → `shop-m3-theme`, `shop-m3-palette`…), so apps on one domain under different paths keep their own theme, palette and contrast. The server reads the prefixed cookies (theme, palette, contrast, viewport) and the inlined `themeInitScript()` uses the prefixed keys. Needs `@m3ui-vue/m3ui-vue` 1.2.2
+
 ## [0.3.0] - 2026-10-22
 
 ### Added
