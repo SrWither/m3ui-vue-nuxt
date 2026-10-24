@@ -83,6 +83,8 @@ The composables are prefixed so they can't clash with other modules (`useDevice`
 | `useDevice` | `useM3Device` |
 | `useWindowSizeClass` | `useM3WindowSizeClass` |
 | `useConfetti` | `useM3Confetti` |
+| `useFireworks` | `useM3Fireworks` |
+| `useReactions` | `useM3Reactions` |
 | `useContainerTransform` | `useM3ContainerTransform` |
 | `useFieldBg`, `useDebounce`, `useAutoGrow`, `usePageProgress`, `useSpring`, `useScrollReveal` | `useM3FieldBg`, `useM3Debounce`, `useM3AutoGrow`, `useM3PageProgress`, `useM3Spring`, `useM3ScrollReveal` |
 | `useMap`, `useMapLayers`, `useMapFilter` (with `maplibre-gl`) | `useM3Map`, `useM3MapLayers`, `useM3MapFilter` |
