@@ -103,6 +103,7 @@ Everything `createM3UI()` takes, plus what the module itself does:
 | `cookies` | `true` | Keep the theme, palette and contrast in cookies too, so the server renders with them |
 | `viewportHints` | `false` | Ask Chromium for the window's exact size with client hints, so the adaptive layouts render at it on a first visit too (that visit's request is repeated once) |
 | `themeScript` | `true` | Inline `themeInitScript()` in `<head>` |
+| `storagePrefix` | | A prefix for the cookies and stored keys (`'shop'` → `shop-m3-theme`…), so apps on one domain under different paths keep their own theme and palette; the server reads the prefixed cookies. Needs `@m3ui-vue/m3ui-vue` 1.2.2 |
 
 ## With @nuxtjs/i18n
 

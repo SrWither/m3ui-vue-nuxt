@@ -28,6 +28,13 @@ export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
    * (by its language tag, `es-AR` → `es`; English where there's no preset), switching with it.
    */
   locale?: LocalePreset | 'auto' | Partial<M3Locale>
+  /**
+   * A prefix for every cookie and localStorage key the library keeps (`'shop'` → `shop-m3-theme`, `shop-m3-palette`…),
+   * so apps on the same domain under different paths (`example.com/admin`, `example.com/shop`) keep their own theme,
+   * palette and contrast; the server reads the prefixed cookies. Letters, digits, `-` and `_`. Needs
+   * `@m3ui-vue/m3ui-vue` 1.2.2.
+   */
+  storagePrefix?: string
   /** Auto-import the components (`<MButton>`…). Each one is bundled only where it's used. Default `true`. */
   components?: boolean
   /**

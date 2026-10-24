@@ -6,7 +6,11 @@ import { autoLocale, cookies, locale, localePresets, options, themeScript, viewp
 
 type Viewport = { width: number, height: number }
 // m3ui-vue ≥ 1.2.0: the cookie, the viewport client hints, or a guess from the kind of device on a first visit
-const fromHeaders = (m3 as { viewportFromHeaders?: (headers: Record<string, string | undefined>) => Viewport | undefined }).viewportFromHeaders
+const fromHeaders = (m3 as { viewportFromHeaders?: (headers: Record<string, string | undefined>, options?: { storagePrefix?: string }) => Viewport | undefined }).viewportFromHeaders
+// m3ui-vue ≥ 1.2.2: `storagePrefix` names every cookie `<prefix>-m3-…`, so apps on one origin under different paths
+// keep their own choices
+const prefix = (options as { storagePrefix?: string }).storagePrefix ?? ''
+const key = (name: string) => (prefix ? `${prefix}-${name}` : name)
 const HINTS = 'Sec-CH-Viewport-Width, Sec-CH-Viewport-Height'
 
 interface I18n {
@@ -20,11 +24,11 @@ export default defineNuxtPlugin({
   setup(nuxtApp) {
     // The user's choice from the cookies the library writes, read the same on the server and the client, so both
     // render it (and the client switches to what it has stored once hydrated)
-    const read = (name: string) => useCookie<string | undefined>(name, { decode: decodeURIComponent, readonly: true }).value
+    const read = (name: string) => useCookie<string | undefined>(key(name), { decode: decodeURIComponent, readonly: true }).value
     // The window's size: the adaptive layouts render for it instead of compact. Worked out on the server from the
     // request and handed to the client in the payload, so hydration renders the same
     const viewport = useState<Viewport | null>('m3ui-viewport', () => {
-      if (import.meta.server && fromHeaders) return fromHeaders(useRequestHeaders()) ?? null
+      if (import.meta.server && fromHeaders) return fromHeaders(useRequestHeaders(), { storagePrefix: prefix }) ?? null
       const [width, height] = (read('m3-viewport') ?? '').split('x').map(Number)
       return width && height ? { width, height } : null
     })
@@ -66,7 +70,7 @@ export default defineNuxtPlugin({
       useHead({
         script: [{
           key: 'm3ui-theme',
-          innerHTML: themeInitScript({ palette: options.palette, contrast: options.contrast, persistPalette: options.persistPalette }),
+          innerHTML: themeInitScript({ palette: options.palette, contrast: options.contrast, persistPalette: options.persistPalette, storagePrefix: prefix } as Parameters<typeof themeInitScript>[0]),
           tagPriority: 'critical',
         }],
       })
