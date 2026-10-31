@@ -88,6 +88,8 @@ The composables are prefixed so they can't clash with other modules (`useDevice`
 | `useContainerTransform` | `useM3ContainerTransform` |
 | `useFieldBg`, `useDebounce`, `useAutoGrow`, `usePageProgress`, `useSpring`, `useScrollReveal` | `useM3FieldBg`, `useM3Debounce`, `useM3AutoGrow`, `useM3PageProgress`, `useM3Spring`, `useM3ScrollReveal` |
 | `useMap`, `useMapLayers`, `useMapFilter` (with `maplibre-gl`) | `useM3Map`, `useM3MapLayers`, `useM3MapFilter` |
+| `useMediaPlayer`, `useFlow`, `useFlowNode`, `useGantt`, `useResourceTimeline` (`@m3ui-vue/m3ui-vue` 1.3.0) | `useM3MediaPlayer`, `useM3Flow`, `useM3FlowNode`, `useM3Gantt`, `useM3ResourceTimeline` |
+| `usePdf` (1.3.0, needs `pdfjs-dist`) | `useM3Pdf` |
 
 Anything else (types, `palettes`, `motionSprings`…) is imported from `@m3ui-vue/m3ui-vue` as usual.
 
