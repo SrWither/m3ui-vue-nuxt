@@ -67,8 +67,8 @@ const toast = useM3Toast()
 ```
 
 Each component is bundled only where it's used. `MChart`, `MCodeEditor`, `MJsonEditor`, `MMarkdown`,
-`MRichTextEditor`, `MTerminal`, `MQRCode`, `MBarcode` and the `MMap` family are registered when their optional
-dependency is installed (see the library's README); so are `useMap`, `useMapLayers` and `useMapFilter`.
+`MRichTextEditor`, `MTerminal`, `MQRCode`, `MBarcode`, the `MMap` family and `MPdfViewer` are registered when their
+optional dependency is installed (see the library's README); so are `useMap`, `useMapLayers`, `useMapFilter` and `usePdf`.
 
 The composables are prefixed so they can't clash with other modules (`useDevice`, `useTheme`… are common names):
 

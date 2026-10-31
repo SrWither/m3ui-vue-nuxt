@@ -19,6 +19,7 @@ const OPTIONAL_ENTRIES: Record<string, string> = {
   [`${LIB}/qrcode`]: 'qrcode-generator',
   [`${LIB}/barcode`]: 'jsbarcode',
   [`${LIB}/map`]: 'maplibre-gl',
+  [`${LIB}/pdf`]: 'pdfjs-dist',
 }
 
 export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
