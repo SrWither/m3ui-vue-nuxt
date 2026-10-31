@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.1] - 2026-10-31
+
+### Fixed
+- `MPdfViewer` and `useM3Pdf` (`@m3ui-vue/m3ui-vue` 1.3.0's `/pdf` entry) were registered even without `pdfjs-dist` installed, so using one failed at build time on a missing import; they're now registered only with it, like the other optional entry points. The rest of 1.3.0 (media players, `MFlow`, `MGantt`, the drawing canvas, `MFloorPlan`; `useM3MediaPlayer`, `useM3Flow`, `useM3FlowNode`, `useM3Gantt`, `useM3ResourceTimeline`, `useM3Drawing`) needs nothing more and is auto-imported from the library's API index; the README lists them
+
 ## [0.4.0] - 2026-10-23
 
 ### Added
