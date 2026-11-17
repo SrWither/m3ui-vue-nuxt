@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.2] - 2026-11-17
+
+### Changed
+- Tested with `@m3ui-vue/m3ui-vue` 1.4.0 (the playground and the dev dependency are on `^1.4.0`). Its new components (`MPosKeypad`, `MSeatMap`, `MCreditCardInput`, `MOdontogram`, `MQuiz`, `MCertificate`…) are registered from the library's API index with no change to the module, and server rendering passes with them
+
+---
+
 ## [0.4.1] - 2026-10-31
 
 ### Fixed
