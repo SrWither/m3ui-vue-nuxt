@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.3] - 2026-11-22
+
+### Changed
+- Tested with `@m3ui-vue/m3ui-vue` 1.5.1 (the playground and the dev dependency are on `^1.5.1`): the form fields' long-content fix needs no change to the module, and server rendering passes with it
+
+---
+
 ## [0.4.2] - 2026-11-17
 
 ### Changed
