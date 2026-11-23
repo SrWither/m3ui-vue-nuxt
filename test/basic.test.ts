@@ -74,14 +74,14 @@ describe('ssr', async () => {
   })
 
   it('skips the components and composables of an entry point whose dependency isn\'t installed', () => {
-    // Neither chart.js nor maplibre-gl is installed here
+    // chart.js isn't installed here; maplibre-gl is (a dev dependency, for test/map.test.ts)
     const buildDir = useTestContext().nuxt!.options.buildDir
     const components = readFileSync(join(buildDir, 'components.d.ts'), 'utf8')
     const imports = readFileSync(join(buildDir, 'types/imports.d.ts'), 'utf8')
     expect(components).toContain('MButton')
     expect(components).not.toContain('MChart')
-    expect(components).not.toContain('MMap')
+    expect(components).toContain('MMap')
     expect(imports).toContain('useM3Theme')
-    expect(imports).not.toContain('useM3Map')
+    expect(imports).toContain('useM3Map')
   })
 })

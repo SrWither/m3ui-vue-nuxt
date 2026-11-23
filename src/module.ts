@@ -65,6 +65,12 @@ export interface ModuleOptions extends Omit<M3UIOptions, 'locale'> {
    * on the server-rendered page before the first paint. Default `true`.
    */
   themeScript?: boolean
+  /**
+   * With maplibre-gl 6 installed, hand its worker to `MMap` (`setMapWorker()`) in the browser: v6 runs its worker from
+   * a file of its own, which the bundler has to emit, or the maps stay blank. Set `false` to call `setMapWorker()`
+   * yourself. maplibre-gl 5 needs nothing. Needs `@m3ui-vue/m3ui-vue` 1.6.0. Default `true`.
+   */
+  mapWorker?: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -80,11 +86,12 @@ export default defineNuxtModule<ModuleOptions>({
     cookies: true,
     viewportHints: false,
     themeScript: true,
+    mapWorker: true,
   },
   async setup(options, nuxt) {
     const logger = useLogger('@m3ui-vue/nuxt')
     const resolver = createResolver(import.meta.url)
-    const { components, composables, css, cookies, viewportHints, themeScript, locale, ...plugin } = options
+    const { components, composables, css, cookies, viewportHints, themeScript, mapWorker, locale, ...plugin } = options
 
     // The library's own API index (dist/api.json) lists every component and composable with its entry point
     const entry = await resolvePath(LIB, { extensions: ['.js', '.mjs'] })
@@ -123,6 +130,24 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     if (css) nuxt.options.css.push(`${LIB}/styles`)
+
+    // maplibre-gl 6 loads its worker from its own file: Vite emits it with `?worker&url`, and MMap gets its URL
+    if (mapWorker && api.values.some(value => value.name === 'setMapWorker') && await isAvailable(`${LIB}/map`)) {
+      const pkg = await tryResolveModule('maplibre-gl/package.json', nuxt.options.modulesDir)
+      const major = pkg ? Number(JSON.parse(readFileSync(pkg, 'utf8')).version.split('.')[0]) : 0
+      if (major >= 6) {
+        const template = addTemplate({
+          filename: 'm3ui-map-worker.client.mjs',
+          getContents: () => [
+            `import { defineNuxtPlugin } from '#app'`,
+            `import { setMapWorker } from '${LIB}/map'`,
+            `import mapWorker from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'`,
+            `export default defineNuxtPlugin(() => { setMapWorker(mapWorker) })`,
+          ].join('\n'),
+        })
+        addPlugin({ src: template.dst, mode: 'client' })
+      }
+    }
 
     // The plugin's options, with the locale preset imported by name so only that one is bundled ('auto' needs them all)
     const auto = locale === 'auto'
