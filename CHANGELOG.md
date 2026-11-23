@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.0] - 2026-11-23
+
+### Added
+- `mapWorker` option (default `true`): with `maplibre-gl` 6 installed, the module emits MapLibre's worker and hands its URL to `MMap` (`setMapWorker()`) in the browser. maplibre-gl 6 runs its worker from a file of its own, and without this the maps stay blank. Set it to `false` to call `setMapWorker()` yourself; maplibre-gl 5 needs nothing. Needs `@m3ui-vue/m3ui-vue` 1.6.0
+
+### Changed
+- Tested with `@m3ui-vue/m3ui-vue` 1.6.0 (the playground and the dev dependency are on `^1.6.0`)
+
+---
+
 ## [0.4.3] - 2026-11-22
 
 ### Changed
