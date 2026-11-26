@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.1] - 2026-11-26
+
+### Changed
+- Tested with `@m3ui-vue/m3ui-vue` 1.6.2 (the playground and the dev dependency are on `^1.6.2`); its new components (`MFilterBuilder`, `MMentionField`, `MCronField`, `MDashboardGrid`, `MDiffViewer`, `MNotificationCenter`, `MMapCluster`, `MMapDraw`, `MAddressField`…) are auto-imported like the rest
+
+---
+
 ## [0.5.0] - 2026-11-23
 
 ### Added
