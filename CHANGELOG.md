@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.2] - 2026-11-27
+
+### Changed
+- Tested with `@m3ui-vue/m3ui-vue` 1.7.0 (the playground and the dev dependency are on `^1.7.0`); its new components (`MForm`, `MMapRoute`, `MTrackingTimeline`) are auto-imported like the rest. The validation rules (`required`, `email`, `minLength`…) aren't composables, so they aren't auto-imported: import them from `@m3ui-vue/m3ui-vue`
+
+---
+
 ## [0.5.1] - 2026-11-26
 
 ### Changed
